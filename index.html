@@ -1,0 +1,112 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <title>AltiviaOT - Application</title>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <meta name="description" content="">
+    <meta name="author" content="AltiviaOT">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height, width=device-width" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/lungo.css">
+    <link rel="stylesheet" href="css/lungo.theme.css">
+    <link rel="stylesheet" href="css/lungo.icon.css">
+    <!-- App Stylesheet -->
+    <link rel="stylesheet" href="css/app.css">
+    <script type="text/javascript">
+    	document.addEventListener("deviceready", onDeviceReady, false);
+    	function onDeviceReady() {
+    		StatusBar.styleLightContent();
+    		StatusBar.backgroundColorByHexString("#0294d7");
+    		Lungo.Service.Settings.timeout = 10;
+    		Lungo.Service.Settings.error = function(type, xhr){
+        	    spinnerplugin.hide();
+    			navigator.notification.alert(
+    				'Smart Emergency no se pudo conectar con el servidor. Compruebe su conexión a Internet antes de intentarlo de nuevo.', // message
+    				cancelFunction,         // función 'callback' alertCallback
+    				'Error de Conexión',    // title
+    				'Cerrar'                // buttonName
+    			);
+    		};
+
+    		if(localStorage.getItem('user_id')){
+    			spinnerplugin.show({});
+    			setTimeout(function(){ changeToDashboard(); },500);
+    		}
+        }
+    </script>
+</head>
+<body style="overflow-x: hidden">
+	<section id="login" data-transition="slide">
+        <article id="art_login" class="active splash">
+            <img src="images/slogan.png" class="logo"/>
+            <div class="form">
+                <fieldset class="radius-top" data-icon="user">
+                    <input type="email" placeholder="Type your username here" id="txtEmail">
+                </fieldset>
+                <fieldset class="radius-bottom shadow" data-icon="lock">
+                    <input type="password" placeholder="Type your password here" id="txtPass">
+                </fieldset>
+                <br/>
+                <button class="anchor" data-icon="lock" data-label="Inición Sesion" data-action="login"></button>
+                <button class="secondary anchor" data-icon="question-sign" data-label="Registro"></button>
+            </div>
+            <span class="copyright text" >Copyright (C) 2012 - 2014. AltiviaOT</span>
+        </article>
+    </section>
+    <section id="dashboard" data-transition="cover" data-aside="side-menu" class="drag" style="overflow-x: hidden">
+        <header>
+            <nav>
+                <a href="#" data-view-aside="side-menu" data-icon="menu"></a>
+            </nav>
+            <img src="images/slogan.png" class="title centered">
+            <nav class="on-right">
+                <!--<a href="#" data-icon="refresh" onClick="refreshDashboard();"></a>-->
+            </nav>
+        </header>
+        <article id="art_login" class="active splash">
+            <div class="form">
+                <fieldset>
+                    <label>Tipo de Servicio:</label>
+                    <label class="select ">
+                        <select id="type_services" class="custom">
+                            <option value="1">HTML5 Jedi</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <textarea placeholder="Descripción de la Incidencia" style="margin: 8px 0px; height: 48px; width: 100%;"></textarea>
+                </fieldset>
+                <br>
+                <button class="anchor" data-icon="lock" data-label="Solicitud de Servicio" data-action="login"></button>
+                <button class="secondary anchor" data-icon="question-sign" data-label="Emergencia" style="background-color: #AD0000;"></button>
+            </div>
+            <span class="copyright text" >Copyright (C) 2012 - 2014. AltiviaOT</span>
+        </article>
+    </section>
+    <!-- Framework dependencies -->
+    <script src="js/quo.js"></script>
+    <script src="js/lungo.js"></script>
+    <script src="js/jquery110.js"></script>
+    <script src='js/jquery.autosize.js'></script>
+    <!-- LungoJS - Sandbox App -->
+    <script>
+	   Lungo.init({
+            name: 'Smart Emergency',
+            version: '1.0.0',
+            resources: [
+                'aside-menu.html',
+				'update-event.html',
+				'create-event.html'],
+            history: false
+        });
+    </script>
+    <script src="js/app.js"></script>
+</body>
+</html>
